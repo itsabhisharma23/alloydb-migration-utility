@@ -63,3 +63,34 @@ This script handles the core migration process using DMS. This will create conne
 
 ```bash
 ./run_dms.sh
+```
+
+The script will prompt you for the source and target database passwords and then create the necessary connection profiles and the DMS migration job.
+
+**NOTE: Execute Step 2 and 3 only when the DMS job is in CDC phase.**
+
+### 2.  Set Up Data Validation (`setup_validations.sh`)
+
+This script prepares the environment for data validation.
+
+```bash
+./setup_validations.sh
+```
+It creates the BigQuery dataset and table to store validation results and optionally provisions a Compute Engine instance to run the validation scripts. It also offers to set up SSH keys for access to the validation VM. This is a required step for the tool to run validations on VM. 
+Optionally, Users can run the validations directly in the VM.
+
+### 3. Perform Pre-Migration Validations (`prevalidations.sh`)
+This script should be executed on the designated validation VM before the actual migration. If you chose to create the VM and set up SSH keys in setup_validations.sh, the script can be run automatically. Otherwise, you will need to connect to the VM and run it manually.
+
+```bash
+./prevalidations.sh
+```
+
+**NOTE: Execute Step 4 only when the cut-over is achieved and there are no more writes to the source DB and replication lag is 0 in DMS job.**
+### 4. Perform Post-Migration Validations (`postvalidations.sh`)
+
+This script is similar to prevalidations.sh and should be executed on the validation VM after the migration is complete.
+
+```bash
+./postvalidations.sh
+```
