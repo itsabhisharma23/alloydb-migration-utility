@@ -74,10 +74,10 @@ echo ""
 echo ""
 echo "Note: You can run migration assessment to check compatibility between Source and Target databases."
 echo "      Run migration assessment on a machine where your source database is accessible."
-read -p "${BOLD}Do you want to run Migration Assessment for Postgres?${NC} : y/n" is_migration_assessment
+read -p "${BOLD}Do you want to run Migration Assessment for Postgres?${NC} : y/n " is_migration_assessment
 echo ""
 is_migration_assessment="${is_migration_assessment,,}"
-if [[ "$is_vm_required" == "y" ]]; then
+if [[ "$is_migration_assessment" == "y" ]]; then
   echo "${YELLOW}${BOLD}Running Migration Assessment...${NC}"
   source "migration_assessment.sh"
   echo ""
