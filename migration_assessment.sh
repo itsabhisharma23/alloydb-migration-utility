@@ -22,6 +22,7 @@ sudo pip install --upgrade pip virtualenv
 virtualenv -p python3 env
 source env/bin/activate
 wget https://github.com/GoogleCloudPlatform/database-assessment/releases/download/v4.3.43/dma-4.3.43-py3-none-any.whl
+pip install psycopg
 pip install 'dma-4.3.43-py3-none-any.whl'
 
 dma readiness-check --db-type postgres --hostname $SOURCE_HOST --no-prompt --port $SOURCE_PORT --database postgres --username postgres --password $DVT_SOURCE_PASSWORD
