@@ -71,6 +71,9 @@ echo "--------------------------------------------------------------------------
 echo "You are about to migrate databases from ${GREEN}$source_type_name${NC} to ${GREEN}$target_type_name${NC}."
 echo "-------------------------------------------------------------------------------------"
 echo ""
+echo ""
+echo "${YELLOW}${BOLD}Running Migration Assessment...${NC}"
+source "migration_assessment.sh"
 
 # Create the connection profile for source(PostgreSQL DB)
 # Provide --cloudsql-instance if source DB is CloudSQL(Postgre) 
