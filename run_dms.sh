@@ -72,8 +72,24 @@ echo "You are about to migrate databases from ${GREEN}$source_type_name${NC} to 
 echo "-------------------------------------------------------------------------------------"
 echo ""
 echo ""
-echo "${YELLOW}${BOLD}Running Migration Assessment...${NC}"
-source "migration_assessment.sh"
+echo "Note: You can run migration assessment to check compatibility between Source and Target databases."
+echo "      Run migration assessment on a machine where your source database is accessible."
+read -p "${BOLD}Do you want to run Migration Assessment for Postgres?${NC} : y/n" is_migration_assessment
+echo ""
+is_migration_assessment="${is_migration_assessment,,}"
+if [[ "$is_vm_required" == "y" ]]; then
+  echo "${YELLOW}${BOLD}Running Migration Assessment...${NC}"
+  source "migration_assessment.sh"
+  echo ""
+  echo ""
+  read -p "${BOLD}Do you want to continue with Database Migration?${NC} : y/n" continue_dms
+  continue_dms="${continue_dms,,}"
+  if [[ "$continue_dms" != "y" ]]; then
+    echo "${BOLD}You chose not to run Database Migration at this point. Exiting the tool.${NC}"
+    exit 0
+  fi
+else
+  echo "${BOLD}Skipping Migration Assessment...${NC}"
 
 # Create the connection profile for source(PostgreSQL DB)
 # Provide --cloudsql-instance if source DB is CloudSQL(Postgre) 
