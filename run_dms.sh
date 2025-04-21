@@ -90,6 +90,7 @@ if [[ "$is_vm_required" == "y" ]]; then
   fi
 else
   echo "${BOLD}Skipping Migration Assessment...${NC}"
+fi
 
 # Create the connection profile for source(PostgreSQL DB)
 # Provide --cloudsql-instance if source DB is CloudSQL(Postgre) 
